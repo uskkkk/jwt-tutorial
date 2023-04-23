@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class jwtFilter  extends GenericFilter {
     private static final Logger logger = LoggerFactory.getLogger(jwtFilter.class);
-    public static final String AUTHORIZATION = "Authorization";
+    public static final String AUTHORIZATION_HEADER  = "Authorization";
     private TokenProvider tokenProvider;
 
     public jwtFilter(TokenProvider tokenProvider) {
@@ -38,7 +38,7 @@ public class jwtFilter  extends GenericFilter {
     }
 
     private String resolveToken(HttpServletRequest request) {
-        String bearerToken = request.getHeader(AUTHORIZATION);
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER );
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
