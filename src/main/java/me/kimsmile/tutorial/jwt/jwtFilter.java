@@ -1,16 +1,20 @@
 package me.kimsmile.tutorial.jwt;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
+import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-public class jwtFilter  extends GenericFilter {
+public class jwtFilter  extends GenericFilterBean {
     private static final Logger logger = LoggerFactory.getLogger(jwtFilter.class);
     public static final String AUTHORIZATION_HEADER  = "Authorization";
     private TokenProvider tokenProvider;

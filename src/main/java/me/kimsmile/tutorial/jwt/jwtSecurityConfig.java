@@ -1,5 +1,6 @@
 package me.kimsmile.tutorial.jwt;
 
+import jakarta.servlet.Filter;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
@@ -16,7 +17,7 @@ public class jwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
     @Override
     public void configure(HttpSecurity http) {
         http.addFilterBefore(
-                new jwtFilter(tokenProvider),
+                (Filter) new jwtFilter(tokenProvider),
                 UsernamePasswordAuthenticationFilter.class
         );
     }

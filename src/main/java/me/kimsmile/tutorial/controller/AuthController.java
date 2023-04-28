@@ -1,5 +1,6 @@
 package me.kimsmile.tutorial.controller;
 
+import jakarta.validation.Valid;
 import me.kimsmile.tutorial.dto.LoginDto;
 import me.kimsmile.tutorial.dto.TokenDto;
 import me.kimsmile.tutorial.jwt.TokenProvider;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")

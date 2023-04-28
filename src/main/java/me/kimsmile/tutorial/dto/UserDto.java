@@ -1,11 +1,11 @@
 package me.kimsmile.tutorial.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import me.kimsmile.tutorial.entity.User;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Set;
 import java.util.stream.Collectors;
 

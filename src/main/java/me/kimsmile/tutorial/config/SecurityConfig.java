@@ -1,21 +1,15 @@
 package me.kimsmile.tutorial.config;
 
-import lombok.RequiredArgsConstructor;
 import me.kimsmile.tutorial.jwt.TokenProvider;
 import me.kimsmile.tutorial.jwt.jwtAccessDeniedHandler;
 import me.kimsmile.tutorial.jwt.jwtAuthenticationEntryPoint;
 import me.kimsmile.tutorial.jwt.jwtSecurityConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.security.ConditionalOnDefaultWebSecurity;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,10 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
-@Configuration(proxyBeanMethods = false)
-@ConditionalOnDefaultWebSecurity
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity
+@Configuration
+public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final CorsFilter corsFilter;
     private final jwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -37,8 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             TokenProvider tokenProvider,
             CorsFilter corsFilter,
             jwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
-            jwtAccessDeniedHandler jwtAccessDeniedHandler
-    ) {
+            jwtAccessDeniedHandler jwtAccessDeniedHandler) {
         this.tokenProvider = tokenProvider;
         this.corsFilter = corsFilter;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
@@ -75,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/api/hello", "/api/authenticate", "/api/signup").permitAll()
+                .requestMatchers("/api/hello", "/api/authenticate", "/api/signup").permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
 
